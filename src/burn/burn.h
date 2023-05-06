@@ -321,7 +321,8 @@ INT32 BurnDrvExit();
 INT32 BurnDrvCartridgeSetup(BurnCartrigeCommand nCommand);
 
 INT32 BurnDrvFrame();
-INT32 BurnDrvRedraw();
+INT32 BurnDrvRedraw(bool flip = true);
+void BurnDrvFlipVideoBuffers();
 INT32 BurnRecalcPal();
 INT32 BurnDrvGetPaletteEntries();
 

@@ -652,7 +652,6 @@ static void BurnDrvDrawLoop()
 		if (pDriver[nBurnDrvActive]->Redraw)
 		{
 			pDriver[nBurnDrvActive]->Redraw(); // Forward to drivers function
-			// TODO: double buffering
 		}
 	}
 }
@@ -838,28 +837,33 @@ extern "C" INT32 BurnDrvFrame()
 }
 
 // Force redraw of the screen
-extern "C" INT32 BurnDrvRedraw()
+extern "C" INT32 BurnDrvRedraw(bool flip)
 {
 	// Signal video thread
 	{
 		std::scoped_lock<std::mutex> lk(mutexVideo);
 
 		// Since we have the mutex, video thread is now blocking
-		std::swap(vFrontBuffer, vBackBuffer);
-
-		if (vBackBuffer.empty())
+		if (flip)
 		{
-			pBurnDraw = NULL;
-			return 1;
+			std::swap(vFrontBuffer, vBackBuffer);
+			pBurnDraw = vBackBuffer.empty() ? NULL : vBackBuffer.data();
 		}
 
-		pBurnDraw = vBackBuffer.data();
+		if (!pBurnDraw) return 1;
 
 		bVideoNeedsUpdate = true;
 		cvVideo.notify_one();
 	}
 
 	return 1;
+}
+
+extern "C" void BurnDrvFlipVideoBuffers()
+{
+	std::scoped_lock<std::mutex> lk(mutexVideo);
+	std::swap(vFrontBuffer, vBackBuffer);
+	pBurnDraw = vBackBuffer.empty() ? NULL : vBackBuffer.data();
 }
 
 // Refresh Palette
