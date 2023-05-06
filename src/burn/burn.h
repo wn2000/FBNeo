@@ -5,6 +5,8 @@
 #ifndef _BURNH_H
 #define _BURNH_H
 
+#include <vector>
+
 #ifdef __cplusplus
  extern "C" {
 #endif
@@ -268,6 +270,9 @@ extern UINT32 nBurnDrvSelect[8];		// Which games are selected (i.e. loaded but n
 extern INT32 nMaxPlayers;
 
 extern UINT8 *pBurnDraw;			// Pointer to correctly sized bitmap
+extern std::vector<UINT8> vFrontBuffer;
+extern std::vector<UINT8> vBackBuffer;
+
 extern INT32 nBurnPitch;						// Pitch between each line
 extern INT32 nBurnBpp;						// Bytes per pixel (2, 3, or 4)
 

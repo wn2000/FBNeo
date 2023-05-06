@@ -1,4 +1,8 @@
 // Burn - Drivers module
+#include <atomic>
+#include <condition_variable>
+#include <mutex>
+#include <thread>
 
 #include "version.h"
 #include "burnint.h"
@@ -54,6 +58,9 @@ INT32 nBurnCPUSpeedAdjust = 0x0100;	// CPU speed adjustment (clock * nBurnCPUSpe
 
 // Burn Draw:
 UINT8* pBurnDraw = NULL;	// Pointer to correctly sized bitmap
+std::vector<UINT8> vFrontBuffer;
+std::vector<UINT8> vBackBuffer;
+
 INT32 nBurnPitch = 0;					// Pitch between each line
 INT32 nBurnBpp;						// Bytes per pixel (2, 3, or 4)
 
@@ -74,6 +81,13 @@ INT32 nMaxPlayers;
 bool bSaveCRoms = 0;
 
 UINT32 *pBurnDrvPalette;
+
+// thread variables
+static std::mutex mutexVideo;
+static std::condition_variable cvVideo;
+static bool bVideoNeedsUpdate = false;
+static std::atomic_bool bVideoLoopExit = false;
+std::thread videoThread;
 
 bool BurnCheckMMXSupport()
 {
@@ -623,6 +637,26 @@ static void BurnRestoreSizeAspect_Internal()
 	}
 }
 
+static void BurnDrvDrawLoop()
+{
+	while (!bVideoLoopExit)
+	{
+		std::unique_lock<std::mutex> lk(mutexVideo);
+		cvVideo.wait(lk, [] { return bVideoNeedsUpdate || bVideoLoopExit; });
+
+		if (bVideoLoopExit)
+			return;
+
+		bVideoNeedsUpdate = false;
+
+		if (pDriver[nBurnDrvActive]->Redraw)
+		{
+			pDriver[nBurnDrvActive]->Redraw(); // Forward to drivers function
+			// TODO: double buffering
+		}
+	}
+}
+
 // Init game emulation (loading any needed roms)
 extern "C" INT32 BurnDrvInit()
 {
@@ -708,6 +742,9 @@ extern "C" INT32 BurnDrvInit()
 	}
 #endif
 
+	// Start video loop
+	videoThread = std::thread(BurnDrvDrawLoop);
+
 	return nReturnValue;
 }
 
@@ -751,6 +788,10 @@ extern "C" INT32 BurnDrvExit()
 #endif
 
 	BurnRestoreSizeAspect_Internal();
+
+	bVideoLoopExit = true;
+	cvVideo.notify_one();
+	videoThread.join();
 
 	return nRet;
 }
@@ -799,11 +840,26 @@ extern "C" INT32 BurnDrvFrame()
 // Force redraw of the screen
 extern "C" INT32 BurnDrvRedraw()
 {
-	if (pDriver[nBurnDrvActive]->Redraw) {
-		return pDriver[nBurnDrvActive]->Redraw();	// Forward to drivers function
+	// Signal video thread
+	{
+		std::scoped_lock<std::mutex> lk(mutexVideo);
+
+		// Since we have the mutex, video thread is now blocking
+		std::swap(vFrontBuffer, vBackBuffer);
+
+		if (vBackBuffer.empty())
+		{
+			pBurnDraw = NULL;
+			return 1;
+		}
+
+		pBurnDraw = vBackBuffer.data();
+
+		bVideoNeedsUpdate = true;
+		cvVideo.notify_one();
 	}
 
-	return 1;										// No funtion provide, so simply return
+	return 1;
 }
 
 // Refresh Palette

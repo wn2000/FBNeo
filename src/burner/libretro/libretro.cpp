@@ -82,7 +82,6 @@ std::vector<cheat_core_option> cheat_core_options;
 
 INT32 nAudSegLen = 0;
 
-static UINT8* pVidImage = NULL;
 static bool bVidImageNeedRealloc = false;
 static bool bRotationDone = false;
 static int16_t *pAudBuffer = NULL;
@@ -1153,7 +1152,7 @@ void retro_reset()
 	if (bIsNeogeoCartGame)
 		set_neo_system_bios();
 
-	pBurnDraw = NULL;
+	vFrontBuffer.clear();
 	ForceFrameStep();
 
 	// Loading minimal savestate (handle some machine settings)
@@ -1163,17 +1162,6 @@ void retro_reset()
 		// eeproms are loading nCurrentFrame, but we probably don't want this
 		nCurrentFrame = 0;
 	}
-}
-
-static void VideoBufferInit()
-{
-	size_t nSize = nGameWidth * nGameHeight * nBurnBpp;
-	if (pVidImage)
-		pVidImage = (UINT8*)realloc(pVidImage, nSize);
-	else
-		pVidImage = (UINT8*)malloc(nSize);
-	if (pVidImage)
-		memset(pVidImage, 0, nSize);
 }
 
 void retro_run()
@@ -1284,7 +1272,8 @@ void retro_run()
 		bUpdateAudioLatency = false;
 	}
 
-	pBurnDraw = bEnableVideo && !bSkipFrame ? pVidImage : NULL; // Set to NULL to skip frame rendering
+	if (!bEnableVideo || bSkipFrame) vFrontBuffer.clear();
+
 	pBurnSoundOut = bEmulateAudio ? pAudBuffer : NULL; // Set to NULL to skip sound rendering
 
 	ForceFrameStep();
@@ -1296,15 +1285,16 @@ void retro_run()
 		audio_batch_cb(pBurnSoundOut, nBurnSoundLen);
 	}
 
-	if (bVidImageNeedRealloc)
+	if (size_t nSize = nGameWidth * nGameHeight * nBurnBpp; vFrontBuffer.size() != nSize)
 	{
-		bVidImageNeedRealloc = false;
-		VideoBufferInit();
-		// current frame will be corrupted, let's dupe instead
-		pBurnDraw = NULL;
+		// Reallocate and skip this frame
+		vFrontBuffer.resize(nSize);
+		video_cb(NULL, nGameWidth, nGameHeight, nBurnPitch);
 	}
-
-	video_cb(pBurnDraw, nGameWidth, nGameHeight, nBurnPitch);
+	else
+	{
+		video_cb(vFrontBuffer.data(), nGameWidth, nGameHeight, nBurnPitch);
+	}
 
 	bool updated = false;
 	if (environ_cb(RETRO_ENVIRONMENT_GET_VARIABLE_UPDATE, &updated) && updated)
@@ -1911,12 +1901,8 @@ static bool retro_load_game_common()
 		SetRotation();
 		SetColorDepth();
 
-		VideoBufferInit();
-
-		if (pVidImage == NULL) {
-			HandleMessage(RETRO_LOG_ERROR, "[FBNeo] Failed allocating framebuffer memory\n");
-			goto end;
-		}
+		vFrontBuffer.resize(nGameWidth * nGameHeight * nBurnBpp);
+		pBurnDraw = vFrontBuffer.data();
 
 		apply_cheats_from_variables();
 
@@ -2112,10 +2098,6 @@ void retro_unload_game(void)
 		if (nGameType == RETRO_GAME_TYPE_NEOCD)
 			CDEmuExit();
 		nBurnDrvActive = ~0U;
-	}
-	if (pVidImage) {
-		free(pVidImage);
-		pVidImage = NULL;
 	}
 	if (pAudBuffer) {
 		free(pAudBuffer);
