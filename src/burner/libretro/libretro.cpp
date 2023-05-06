@@ -1301,6 +1301,7 @@ void retro_run()
 	{
 		UINT32 old_nVerticalMode = nVerticalMode;
 		UINT32 old_nFrameskipType = nFrameskipType;
+		bool old_bBurnUseThreadedVideo = bBurnUseThreadedVideo;
 
 		check_variables();
 
@@ -1318,6 +1319,9 @@ void retro_run()
 
 		if (old_nFrameskipType != nFrameskipType)
 			bUpdateAudioLatency = true;
+
+		// Switching this on-the-fly is causing an issue.
+		bBurnUseThreadedVideo = old_bBurnUseThreadedVideo;
 	}
 }
 

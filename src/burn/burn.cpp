@@ -83,6 +83,7 @@ bool bSaveCRoms = 0;
 UINT32 *pBurnDrvPalette;
 
 // thread variables
+bool bBurnUseThreadedVideo = false;
 static std::mutex mutexVideo;
 static std::condition_variable cvVideo;
 static bool bVideoNeedsUpdate = false;
@@ -742,7 +743,7 @@ extern "C" INT32 BurnDrvInit()
 #endif
 
 	// Start video loop
-	videoThread = std::thread(BurnDrvDrawLoop);
+	if (bBurnUseThreadedVideo) BurnDrvDrawThreadInit();
 
 	return nReturnValue;
 }
@@ -788,9 +789,7 @@ extern "C" INT32 BurnDrvExit()
 
 	BurnRestoreSizeAspect_Internal();
 
-	bVideoLoopExit = true;
-	cvVideo.notify_one();
-	videoThread.join();
+	BurnDrvDrawThreadExit();
 
 	return nRet;
 }
@@ -836,34 +835,50 @@ extern "C" INT32 BurnDrvFrame()
 	return pDriver[nBurnDrvActive]->Frame();		// Forward to drivers function
 }
 
-// Force redraw of the screen
-extern "C" INT32 BurnDrvRedraw(bool flip)
+// Exit the draw thread (if any)
+extern "C" void BurnDrvDrawThreadExit()
 {
-	// Signal video thread
+	if (videoThread.joinable())
 	{
+		bVideoLoopExit = true;
+		cvVideo.notify_one();
+		videoThread.join();
+	}
+}
+
+// Init the draw thread
+extern "C" void BurnDrvDrawThreadInit()
+{
+	BurnDrvDrawThreadExit();
+
+	videoThread = std::thread(BurnDrvDrawLoop);
+}
+
+// Force redraw of the screen
+extern "C" INT32 BurnDrvRedraw()
+{
+	if (bBurnUseThreadedVideo)
+	{
+		// Once we acquire this mutex, video thread is not doing anything
 		std::scoped_lock<std::mutex> lk(mutexVideo);
 
-		// Since we have the mutex, video thread is now blocking
-		if (flip)
+		std::swap(vFrontBuffer, vBackBuffer);
+		if (vBackBuffer.empty())
 		{
-			std::swap(vFrontBuffer, vBackBuffer);
-			pBurnDraw = vBackBuffer.empty() ? NULL : vBackBuffer.data();
+			pBurnDraw = NULL;
+			return 1;
 		}
 
-		if (!pBurnDraw) return 1;
-
+		pBurnDraw = vBackBuffer.data();
 		bVideoNeedsUpdate = true;
 		cvVideo.notify_one();
 	}
+	else if (pDriver[nBurnDrvActive]->Redraw)
+	{
+		pDriver[nBurnDrvActive]->Redraw(); // Forward to drivers function
+	}
 
 	return 1;
-}
-
-extern "C" void BurnDrvFlipVideoBuffers()
-{
-	std::scoped_lock<std::mutex> lk(mutexVideo);
-	std::swap(vFrontBuffer, vBackBuffer);
-	pBurnDraw = vBackBuffer.empty() ? NULL : vBackBuffer.data();
 }
 
 // Refresh Palette

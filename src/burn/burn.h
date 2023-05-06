@@ -272,6 +272,7 @@ extern INT32 nMaxPlayers;
 extern UINT8 *pBurnDraw;			// Pointer to correctly sized bitmap
 extern std::vector<UINT8> vFrontBuffer;
 extern std::vector<UINT8> vBackBuffer;
+extern bool bBurnUseThreadedVideo;
 
 extern INT32 nBurnPitch;						// Pitch between each line
 extern INT32 nBurnBpp;						// Bytes per pixel (2, 3, or 4)
@@ -318,11 +319,13 @@ INT32 BurnLibExit();
 INT32 BurnDrvInit();
 INT32 BurnDrvExit();
 
+void BurnDrvDrawThreadInit();
+void BurnDrvDrawThreadExit();
+
 INT32 BurnDrvCartridgeSetup(BurnCartrigeCommand nCommand);
 
 INT32 BurnDrvFrame();
-INT32 BurnDrvRedraw(bool flip = true);
-void BurnDrvFlipVideoBuffers();
+INT32 BurnDrvRedraw();
 INT32 BurnRecalcPal();
 INT32 BurnDrvGetPaletteEntries();
 

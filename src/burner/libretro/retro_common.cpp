@@ -604,6 +604,21 @@ static const struct retro_core_option_v2_definition var_fbneo_debug_dip_2_8 = {
 	"disabled"
 };
 
+static const struct retro_core_option_v2_definition var_fbneo_threaded_video = {
+	"fbneo-threaded-video",
+	"Threaded video (experimental)",
+	NULL,
+	"Use threaded video (experimental, requires a restart)",
+	NULL,
+	NULL,
+	{
+		{ "disabled", NULL },
+		{ "enabled", NULL },
+		{ NULL, NULL },
+	},
+	"disabled"
+};
+
 #ifdef FBNEO_DEBUG
 static const struct retro_core_option_v2_definition var_fbneo_debug_layer_1 = {
 	"fbneo-debug-layer-1",
@@ -953,6 +968,9 @@ void set_environment()
 	vars_systems.push_back(&var_fbneo_sample_interpolation);
 	vars_systems.push_back(&var_fbneo_fm_interpolation);
 	vars_systems.push_back(&var_fbneo_lowpass_filter);
+
+	// Threaded video
+	vars_systems.push_back(&var_fbneo_threaded_video);
 
 #ifdef FBNEO_DEBUG
 	// Debug settings
@@ -1342,6 +1360,12 @@ void check_variables(void)
 			nFrameskip = 5;
 		else if (strcmp(var.value, "5") == 0)
 			nFrameskip = 6;
+	}
+
+	var.key = var_fbneo_threaded_video.key;
+	if (environ_cb(RETRO_ENVIRONMENT_GET_VARIABLE, &var) && var.value)
+	{
+		bBurnUseThreadedVideo = (strcmp(var.value, "enabled") == 0);
 	}
 
 	if (pgi_diag)
