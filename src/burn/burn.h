@@ -6,6 +6,7 @@
 #define _BURNH_H
 
 #include <vector>
+#include "devices/BS_thread_pool.hpp"
 
 #ifdef __cplusplus
  extern "C" {
@@ -273,6 +274,7 @@ extern UINT8 *pBurnDraw;			// Pointer to correctly sized bitmap
 extern std::vector<UINT8> vFrontBuffer;
 extern std::vector<UINT8> vBackBuffer;
 extern bool bBurnUseThreadedVideo;
+extern std::unique_ptr<BS::thread_pool> g_thread_pool;
 
 extern INT32 nBurnPitch;						// Pitch between each line
 extern INT32 nBurnBpp;						// Bytes per pixel (2, 3, or 4)

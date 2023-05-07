@@ -1,8 +1,4 @@
 // Burn - Drivers module
-#include <atomic>
-#include <condition_variable>
-#include <mutex>
-#include <thread>
 
 #include "version.h"
 #include "burnint.h"
@@ -84,11 +80,7 @@ UINT32 *pBurnDrvPalette;
 
 // thread variables
 bool bBurnUseThreadedVideo = false;
-static std::mutex mutexVideo;
-static std::condition_variable cvVideo;
-static bool bVideoNeedsUpdate = false;
-static std::atomic_bool bVideoLoopExit = false;
-std::thread videoThread;
+std::unique_ptr<BS::thread_pool> g_thread_pool;
 
 bool BurnCheckMMXSupport()
 {
@@ -638,25 +630,6 @@ static void BurnRestoreSizeAspect_Internal()
 	}
 }
 
-static void BurnDrvDrawLoop()
-{
-	while (!bVideoLoopExit)
-	{
-		std::unique_lock<std::mutex> lk(mutexVideo);
-		cvVideo.wait(lk, [] { return bVideoNeedsUpdate || bVideoLoopExit; });
-
-		if (bVideoLoopExit)
-			return;
-
-		bVideoNeedsUpdate = false;
-
-		if (pDriver[nBurnDrvActive]->Redraw)
-		{
-			pDriver[nBurnDrvActive]->Redraw(); // Forward to drivers function
-		}
-	}
-}
-
 // Init game emulation (loading any needed roms)
 extern "C" INT32 BurnDrvInit()
 {
@@ -742,8 +715,8 @@ extern "C" INT32 BurnDrvInit()
 	}
 #endif
 
-	// Start video loop
-	if (bBurnUseThreadedVideo) BurnDrvDrawThreadInit();
+	// Create thread pool
+	if (bBurnUseThreadedVideo) g_thread_pool = std::make_unique<BS::thread_pool>();
 
 	return nReturnValue;
 }
@@ -789,7 +762,7 @@ extern "C" INT32 BurnDrvExit()
 
 	BurnRestoreSizeAspect_Internal();
 
-	BurnDrvDrawThreadExit();
+	g_thread_pool->reset();
 
 	return nRet;
 }
@@ -835,32 +808,14 @@ extern "C" INT32 BurnDrvFrame()
 	return pDriver[nBurnDrvActive]->Frame();		// Forward to drivers function
 }
 
-// Exit the draw thread (if any)
-extern "C" void BurnDrvDrawThreadExit()
-{
-	if (videoThread.joinable())
-	{
-		bVideoLoopExit = true;
-		cvVideo.notify_one();
-		videoThread.join();
-	}
-}
-
-// Init the draw thread
-extern "C" void BurnDrvDrawThreadInit()
-{
-	BurnDrvDrawThreadExit();
-
-	videoThread = std::thread(BurnDrvDrawLoop);
-}
-
 // Force redraw of the screen
 extern "C" INT32 BurnDrvRedraw()
 {
+	static std::future<INT32> draw_result;
+
 	if (bBurnUseThreadedVideo)
 	{
-		// Once we acquire this mutex, video thread is not doing anything
-		std::scoped_lock<std::mutex> lk(mutexVideo);
+		if (draw_result.valid()) draw_result.wait();
 
 		std::swap(vFrontBuffer, vBackBuffer);
 		if (vBackBuffer.empty())
@@ -870,8 +825,11 @@ extern "C" INT32 BurnDrvRedraw()
 		}
 
 		pBurnDraw = vBackBuffer.data();
-		bVideoNeedsUpdate = true;
-		cvVideo.notify_one();
+
+		if (pDriver[nBurnDrvActive]->Redraw)
+		{
+			draw_result = g_thread_pool->submit(pDriver[nBurnDrvActive]->Redraw);
+		}
 	}
 	else if (pDriver[nBurnDrvActive]->Redraw)
 	{
