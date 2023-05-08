@@ -762,7 +762,7 @@ extern "C" INT32 BurnDrvExit()
 
 	BurnRestoreSizeAspect_Internal();
 
-	g_thread_pool->reset();
+	g_thread_pool.reset();
 
 	return nRet;
 }
