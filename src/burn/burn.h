@@ -273,6 +273,7 @@ extern INT32 nMaxPlayers;
 extern UINT8 *pBurnDraw;			// Pointer to correctly sized bitmap
 extern std::vector<UINT8> vFrontBuffer;
 extern std::vector<UINT8> vBackBuffer;
+extern bool bBurnSkipFrame;
 extern bool bBurnUseThreadedVideo;
 extern std::unique_ptr<BS::thread_pool> g_thread_pool;
 

@@ -1272,7 +1272,7 @@ void retro_run()
 		bUpdateAudioLatency = false;
 	}
 
-	if (!bEnableVideo || bSkipFrame) vFrontBuffer.clear();
+	bBurnSkipFrame = (!bEnableVideo || bSkipFrame);
 
 	pBurnSoundOut = bEmulateAudio ? pAudBuffer : NULL; // Set to NULL to skip sound rendering
 
@@ -1285,7 +1285,11 @@ void retro_run()
 		audio_batch_cb(pBurnSoundOut, nBurnSoundLen);
 	}
 
-	if (size_t nSize = nGameWidth * nGameHeight * nBurnBpp; vFrontBuffer.size() != nSize)
+	if (bBurnSkipFrame)
+	{
+		video_cb(NULL, nGameWidth, nGameHeight, nBurnPitch);
+	}
+	else if (size_t nSize = nGameWidth * nGameHeight * nBurnBpp; vFrontBuffer.size() != nSize)
 	{
 		// Reallocate and skip this frame
 		vFrontBuffer.resize(nSize);

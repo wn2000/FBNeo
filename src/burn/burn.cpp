@@ -56,6 +56,7 @@ INT32 nBurnCPUSpeedAdjust = 0x0100;	// CPU speed adjustment (clock * nBurnCPUSpe
 UINT8* pBurnDraw = NULL;	// Pointer to correctly sized bitmap
 std::vector<UINT8> vFrontBuffer;
 std::vector<UINT8> vBackBuffer;
+bool bBurnSkipFrame = false;
 
 INT32 nBurnPitch = 0;					// Pitch between each line
 INT32 nBurnBpp;						// Bytes per pixel (2, 3, or 4)
