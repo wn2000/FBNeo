@@ -814,6 +814,8 @@ extern "C" INT32 BurnDrvRedraw()
 {
 	static std::future<INT32> draw_result;
 
+	if (bBurnSkipFrame)	return 1;
+
 	if (bBurnUseThreadedVideo)
 	{
 		if (draw_result.valid()) draw_result.wait();
