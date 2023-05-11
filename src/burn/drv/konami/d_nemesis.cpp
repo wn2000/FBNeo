@@ -3425,7 +3425,7 @@ static INT32 NemesisFrame()
 	}
 
 	if (pBurnDraw) {
-		DrvDraw();
+		BurnDrvRedraw();
 	}
 
 	return 0;
@@ -3553,7 +3553,7 @@ static INT32 KonamigtFrame()
 	}
 
 	if (pBurnDraw) {
-		DrvDraw();
+		BurnDrvRedraw();
 	}
 
 	return 0;
@@ -3617,7 +3617,7 @@ static INT32 SalamandFrame()
 	nCyclesExtra[1] = ZetTotalCycles(0) - nCyclesTotal[1];
 
 	if (pBurnDraw) {
-		DrvDraw();
+		BurnDrvRedraw();
 	}
 
 	return 0;
@@ -3684,7 +3684,7 @@ static INT32 HcrashFrame()
 	nCyclesExtra[1] = ZetTotalCycles(0) - nCyclesTotal[1];
 
 	if (pBurnDraw) {
-		DrvDraw();
+		BurnDrvRedraw();
 	}
 
 	return 0;
@@ -3747,7 +3747,7 @@ static INT32 BlkpnthrFrame()
 	nCyclesExtra[1] = ZetTotalCycles(0) - nCyclesTotal[1];
 
 	if (pBurnDraw) {
-		DrvDraw();
+		BurnDrvRedraw();
 	}
 
 	return 0;
@@ -3832,7 +3832,7 @@ static INT32 Gx400Frame()
 	}
 
 	if (pBurnDraw) {
-		DrvDraw();
+		BurnDrvRedraw();
 	}
 
 	return 0;
@@ -3897,7 +3897,7 @@ static INT32 CitybombFrame()
 	nCyclesExtra[1] = ZetTotalCycles(0) - nCyclesTotal[1];
 
 	if (pBurnDraw) {
-		DrvDraw();
+		BurnDrvRedraw();
 	}
 
 	return 0;

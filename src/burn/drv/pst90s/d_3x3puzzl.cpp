@@ -474,7 +474,7 @@ static INT32 DrvFrame()
 	SekSetIRQLine(4, CPU_IRQSTATUS_ACK); // OR AUTO?
 	vblank = 1;
 	if (pBurnDraw) {
-		DrvDraw();
+		BurnDrvRedraw();
 	}
 
 	if (graphics_control & 0x20)

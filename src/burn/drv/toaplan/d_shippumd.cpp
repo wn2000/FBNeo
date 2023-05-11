@@ -640,7 +640,7 @@ static INT32 DrvFrame()
 	ZetClose();
 
 	if (pBurnDraw) {
-		DrvDraw();														// Draw screen if needed
+		BurnDrvRedraw();														// Draw screen if needed
 	}
 
 	return 0;

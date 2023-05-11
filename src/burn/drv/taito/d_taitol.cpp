@@ -3175,7 +3175,7 @@ static void scanline_update(INT32 scanline)
 	if (scanline == 240) {
 
 		if (pBurnDraw) {
-			DrvDraw();
+			BurnDrvRedraw();
 		}
 
 		memcpy (DrvSprBuf, DrvSprRAM, 0x400);
@@ -3290,7 +3290,7 @@ static INT32 Z80x2Frame()
 	ZetClose();
 
 	if (pBurnDraw) {
-		DrvDraw();
+		BurnDrvRedraw();
 	}
 
 	memcpy (DrvSprBuf, DrvSprRAM, 0x400);
@@ -3338,7 +3338,7 @@ static INT32 Z80x1Frame()
 	ZetClose();
 
 	if (pBurnDraw) {
-		DrvDraw();
+		BurnDrvRedraw();
 	}
 
 	memcpy (DrvSprBuf, DrvSprRAM, 0x400);

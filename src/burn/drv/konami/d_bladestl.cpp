@@ -677,7 +677,7 @@ static INT32 DrvFrame()
 			if (K007342_irq_enabled()) HD6309SetIRQLine(1, CPU_IRQSTATUS_AUTO); // firq
 
 			if (pBurnDraw) {
-				DrvDraw();
+				BurnDrvRedraw();
 			}
 		}
 

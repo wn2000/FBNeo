@@ -563,7 +563,7 @@ static INT32 DrvFrame()
 		nCyclesDone[0] += SekRun((nCyclesTotal[0] * (i + 1) / nInterleave) - nCyclesDone[0]);
 		if (i == 240) {
 			if (pBurnDraw) {
-				DrvDraw();
+				BurnDrvRedraw();
 			}
 
 			memcpy (DrvSprBuf, DrvSprRAM, 0x2000);

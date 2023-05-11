@@ -708,7 +708,7 @@ static INT32 DrvFrame()
 	HD6309Close();
 
 	if (pBurnDraw) {
-		DrvDraw();
+		BurnDrvRedraw();
 	}
 
 	return 0;

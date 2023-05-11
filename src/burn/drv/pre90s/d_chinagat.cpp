@@ -768,7 +768,7 @@ static INT32 DrvFrame()
 	ZetClose();
 
 	if (pBurnDraw) {
-		DrvDraw();
+		BurnDrvRedraw();
 	}
 
 	return 0;
@@ -820,7 +820,7 @@ static INT32 DrvBoot2Frame()
 	ZetClose();
 
 	if (pBurnDraw) {
-		DrvDraw();
+		BurnDrvRedraw();
 	}
 
 	return 0;

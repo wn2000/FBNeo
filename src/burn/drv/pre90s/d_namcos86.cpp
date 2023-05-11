@@ -1646,7 +1646,7 @@ static INT32 DrvFrame()
 	}
 
 	if (pBurnDraw) {
-		DrvDraw();
+		BurnDrvRedraw();
 	}
 
 	if (buffer_sprites)

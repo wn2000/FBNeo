@@ -883,7 +883,7 @@ static INT32 DrvFrame()
 		if (i == 208) {
 			vblank = 1;
 			if (pBurnDraw) {
-				DrvDraw();
+				BurnDrvRedraw();
 			}
 		}
 	}

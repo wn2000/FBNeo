@@ -394,7 +394,7 @@ static INT32 DrvFrame()
 	}
 
 	if (pBurnDraw) {
-		DrvDraw();
+		BurnDrvRedraw();
 	}
 
 	memcpy (DrvSprBuf, DrvScrRAM + 0x80, 0x80);

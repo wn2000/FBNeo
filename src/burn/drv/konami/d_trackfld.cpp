@@ -1508,7 +1508,7 @@ static INT32 DrvFrame()
 	M6809Close();
 
 	if (pBurnDraw) {
-		DrvDraw();
+		BurnDrvRedraw();
 	}
 
 	return 0;
@@ -1557,7 +1557,7 @@ static INT32 YieartfFrame()
 	M6809Close();
 
 	if (pBurnDraw) {
-		DrvDraw();
+		BurnDrvRedraw();
 	}
 
 	return 0;
@@ -1612,7 +1612,7 @@ static INT32 ReaktorFrame()
 
 
 	if (pBurnDraw) {
-		DrvDraw();
+		BurnDrvRedraw();
 	}
 
 	return 0;
@@ -1666,7 +1666,7 @@ static INT32 WizzquizFrame()
 	M6800Close();
 
 	if (pBurnDraw) {
-		DrvDraw();
+		BurnDrvRedraw();
 	}
 
 	return 0;

@@ -765,7 +765,7 @@ static INT32 DrvFrame()
 
 		if (i == 106) {
 			if (pBurnDraw) {
-				DrvDraw();
+				BurnDrvRedraw();
 			}
 		}
 

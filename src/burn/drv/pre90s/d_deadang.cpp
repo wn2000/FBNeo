@@ -670,7 +670,7 @@ static INT32 DrvFrame()
 		CPU_RUN(1, Vez);
 		if (i == 0) {
 			if (pBurnDraw) {
-				DrvDraw();
+				BurnDrvRedraw();
 			}
 			memcpy(DrvSprRAMBuf, DrvSprRAM, 0x800);
 			VezSetIRQLineAndVector(0,  0xc8/4, CPU_IRQSTATUS_ACK);

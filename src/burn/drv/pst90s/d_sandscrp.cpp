@@ -749,7 +749,7 @@ static INT32 DrvFrame()
 
 
 	if (pBurnDraw) {
-		DrvDraw();
+		BurnDrvRedraw();
 	}
 
 	pandora_buffer_sprites();

@@ -713,7 +713,7 @@ static INT32 DrvFrame()
 	SekClose();
 
 	if (pBurnDraw) {
-		DrvDraw();												// Draw screen if needed
+		BurnDrvRedraw();												// Draw screen if needed
 	}
 
 	return 0;

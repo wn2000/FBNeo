@@ -1314,7 +1314,7 @@ static INT32 DrvFrame()
 	alpha = (zmask == 0xffff) ? K054338_alpha_level_moo(1) : K054338_set_alpha_level(1);
 
 	if (pBurnDraw) {
-		DrvDraw();
+		BurnDrvRedraw();
 	}
 
 	return 0;

@@ -470,7 +470,7 @@ static INT32 DrvFrame()
 			ZetSetIRQLine(0, CPU_IRQSTATUS_AUTO);
 
 			if (pBurnDraw) {
-				DrvDraw();
+				BurnDrvRedraw();
 			}
 		}
 	}

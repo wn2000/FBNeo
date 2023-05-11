@@ -705,7 +705,7 @@ static INT32 DrvFrame()
 		if (i == 240) {
 			if (K051960_irq_enabled) konamiSetIrqLine(KONAMI_IRQ_LINE, CPU_IRQSTATUS_ACK);
 			if (pBurnDraw) {
-				DrvDraw();
+				BurnDrvRedraw();
 			}
 		}
 	}

@@ -1727,7 +1727,7 @@ static INT32 DrvFrame()
 	ZetClose();
 
 	if (pBurnDraw) {
-		DrvDraw();
+		BurnDrvRedraw();
 	}
 
 	memcpy (DrvSprBuf, DrvSprRAM, 0x200);
@@ -1790,7 +1790,7 @@ static INT32 FballFrame()
 	}
 
 	if (pBurnDraw) {
-		DrvDraw();
+		BurnDrvRedraw();
 	}
 
 	memcpy (DrvSprBuf, DrvSprRAM, 0x200);

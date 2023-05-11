@@ -913,7 +913,7 @@ static INT32 DrvFrame()
 	h6280Close();
 
 	if (pBurnDraw) {
-		DrvDraw();
+		BurnDrvRedraw();
 	}
 
 	return 0;

@@ -1419,7 +1419,7 @@ static INT32 CadashFrame()
 	SekClose();
 	
 	if (pBurnDraw) {
-		DrvDraw();
+		BurnDrvRedraw();
 	}
 
 	PC090OJBufferSprites();
@@ -1465,7 +1465,7 @@ static INT32 EtoFrame() // Using for asuka too, but needs msm5205
 	SekClose();
 	
 	if (pBurnDraw) {
-		DrvDraw();
+		BurnDrvRedraw();
 	}
 	
 	return 0;
@@ -1528,7 +1528,7 @@ static INT32 BonzeFrame()
 	SekClose();
 
 	if (pBurnDraw) {
-		DrvDraw();
+		BurnDrvRedraw();
 	}
 
 	return 0;

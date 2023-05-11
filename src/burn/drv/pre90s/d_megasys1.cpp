@@ -3297,7 +3297,7 @@ static INT32 System1ZFrame()
 	nExtraCycles[0] = nCyclesDone[0] - nCyclesTotal[0];
 
 	if (pBurnDraw) {
-		DrvDraw();
+		BurnDrvRedraw();
 	}
 
 	DrvBufferSprites();
@@ -3343,7 +3343,7 @@ static INT32 System1AFrame()
 
 		if (i == 240) {
 			if (pBurnDraw) {
-				DrvDraw();
+				BurnDrvRedraw();
 			}
 			DrvBufferSprites();
 		}
@@ -3400,7 +3400,7 @@ static INT32 System1B_1CFrame(INT32 maincpu)
 			SekSetIRQLine(4, CPU_IRQSTATUS_AUTO);
 
 			if (pBurnDraw) {
-				DrvDraw();
+				BurnDrvRedraw();
 			}
 		}
 		SekClose();
@@ -3464,7 +3464,7 @@ static INT32 System1DFrame() // peekaboo
 	}
 
 	if (pBurnDraw) {
-		DrvDraw();
+		BurnDrvRedraw();
 	}
 
 	DrvBufferSprites();

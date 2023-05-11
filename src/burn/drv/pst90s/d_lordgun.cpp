@@ -1350,7 +1350,7 @@ static INT32 alienchaFrame()
 	SekClose();
 
 	if (pBurnDraw) {
-		DrvDraw();
+		BurnDrvRedraw();
 	}
 
 	return 0;

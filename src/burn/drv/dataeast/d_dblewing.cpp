@@ -567,7 +567,7 @@ static INT32 DrvFrame()
 			SekSetIRQLine(6, CPU_IRQSTATUS_AUTO);
 
 			if (pBurnDraw) {
-				DrvDraw();
+				BurnDrvRedraw();
 			}
 		}
 

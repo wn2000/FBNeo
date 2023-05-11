@@ -1389,7 +1389,7 @@ static INT32 DrvFrame()
 	ZetClose();
 
 	if (pBurnDraw) {
-		DrvDraw();
+		BurnDrvRedraw();
 	}
 
 	if (pBurnSoundOut) {
@@ -1440,7 +1440,7 @@ static INT32 CongoFrame()
 	}
 
 	if (pBurnDraw) {
-		DrvDraw();
+		BurnDrvRedraw();
 	}
 
 	return 0;

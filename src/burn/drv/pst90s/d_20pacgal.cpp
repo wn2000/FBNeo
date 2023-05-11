@@ -613,7 +613,7 @@ static INT32 DrvFrame()
 	Z180Close();
 
 	if (pBurnDraw) {
-		DrvDraw();
+		BurnDrvRedraw();
 	}
 
 	return 0;

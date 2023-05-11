@@ -1716,7 +1716,7 @@ static INT32 DrvFrame()
 			}
 
 			if (pBurnDraw) {
-				DrvDraw();												// Draw screen if needed
+				BurnDrvRedraw();												// Draw screen if needed
 			}
 			PsikyoSpriteBuffer();
 

@@ -1474,7 +1474,7 @@ static INT32 DrvFrame()
 		if (i == 120)
 		{
 			if (pBurnDraw) {
-				DrvDraw();
+				BurnDrvRedraw();
 			}
 
 			vblank = 0x80;

@@ -491,7 +491,7 @@ static INT32 DrvFrame()
 			}
 
 			if (pBurnDraw) {
-				DrvDraw();
+				BurnDrvRedraw();
 			}
 
 			ToaBufferGP9001Sprites();

@@ -1763,7 +1763,7 @@ static INT32 DrvFrame()
 
 		if (i == 240) {
 			if (pBurnDraw) {
-				DrvDraw();
+				BurnDrvRedraw();
 			}
 
 			sprite_buffer(DrvObjCtrl[1]);

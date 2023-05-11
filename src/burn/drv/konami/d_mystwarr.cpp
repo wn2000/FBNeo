@@ -2975,7 +2975,7 @@ static INT32 DrvFrame()
 
 			if (i == ((nInterleave *  247) / 256)) {
 				if (pBurnDraw) {
-					DrvDraw();
+					BurnDrvRedraw();
 					drawn = 1;
 				}
 			}
@@ -2987,7 +2987,7 @@ static INT32 DrvFrame()
 				SekSetIRQLine(5, CPU_IRQSTATUS_AUTO);
 
 				if (pBurnDraw) {
-					DrvDraw();
+					BurnDrvRedraw();
 					drawn = 1;
 				}
 			}
@@ -3012,7 +3012,7 @@ static INT32 DrvFrame()
 
 	if (!drawn) {
 		if (pBurnDraw) {
-			DrvDraw();
+			BurnDrvRedraw();
 		}
 	}
 

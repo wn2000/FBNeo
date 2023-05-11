@@ -2022,7 +2022,7 @@ static INT32 DrvFrame()
 	M6502Close();
 
 	if (pBurnDraw) {
-		DrvDraw();
+		BurnDrvRedraw();
 	}
 
 	memcpy (DrvSprBuf, DrvSprRAM, 0x800);

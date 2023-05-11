@@ -1284,7 +1284,7 @@ static INT32 DrvFrame()
 		}
 		if (i == 239) {
 			if (pBurnDraw) {
-				DrvDraw();
+				BurnDrvRedraw();
 			}
 			if (Ginkun || Riot) {
 				SekSetIRQLine(5, CPU_IRQSTATUS_AUTO);

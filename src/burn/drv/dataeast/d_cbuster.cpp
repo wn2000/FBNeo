@@ -633,7 +633,7 @@ static INT32 DrvFrame()
 	nCyclesExtra = nCyclesDone[0] - nCyclesTotal[0];
 
 	if (pBurnDraw) {
-		DrvDraw();
+		BurnDrvRedraw();
 	}
 
 	return 0;

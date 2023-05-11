@@ -840,7 +840,7 @@ static INT32 Cop01Frame()
 	}
 
 	if (pBurnDraw) {
-		DrvDraw();
+		BurnDrvRedraw();
 	}
 
 	return 0;
@@ -905,7 +905,7 @@ static INT32 MightguyFrame()
 	ZetClose();
 
 	if (pBurnDraw) {
-		DrvDraw();
+		BurnDrvRedraw();
 	}
 
 	return 0;

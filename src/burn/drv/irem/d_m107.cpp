@@ -982,7 +982,7 @@ static void scanline_interrupts(INT32 scanline)
 		nPrevScreenPos = 0;
 
 		if (pBurnDraw) {
-			DrvDraw();
+			BurnDrvRedraw();
 	//		DrvReDraw();
 		}
 

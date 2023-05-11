@@ -683,7 +683,7 @@ static INT32 DrvFrame()
 	ZetClose();
 
 	if (pBurnDraw) {
-		DrvDraw();
+		BurnDrvRedraw();
 	}
 
 	*bg_select = *bg_latch; // delay 1 frame, gets rid of corruption on scene changes -dink july 31, 2020

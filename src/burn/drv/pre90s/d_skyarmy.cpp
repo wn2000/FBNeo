@@ -613,7 +613,7 @@ static INT32 DrvFrame()
 
 	// make sure the drawing surface is allocated and then draw!
 	if (pBurnDraw) {
-		DrvDraw();
+		BurnDrvRedraw();
 	}
 
 	return 0;

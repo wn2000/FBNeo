@@ -2128,7 +2128,7 @@ static INT32 DrvFrame()
 	if (spritelag_disable) TC0180VCUBufferSprites();
 
 	if (pBurnDraw) {
-		DrvDraw();
+		BurnDrvRedraw();
 	}
 
 	if (!spritelag_disable) TC0180VCUBufferSprites();

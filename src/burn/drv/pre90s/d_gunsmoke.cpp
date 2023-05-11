@@ -550,7 +550,7 @@ static INT32 DrvFrame()
 			ZetSetIRQLine(0, CPU_IRQSTATUS_HOLD);
 
 			if (pBurnDraw) {
-				DrvDraw();
+				BurnDrvRedraw();
 			}
 		}
 		ZetClose();

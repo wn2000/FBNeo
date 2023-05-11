@@ -529,7 +529,7 @@ static INT32 DrvFrame()
 			vblank = 1;
 
 			if (pBurnDraw) {
-				DrvDraw();
+				BurnDrvRedraw();
 			}
 		}
 	}

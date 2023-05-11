@@ -702,7 +702,7 @@ static INT32 DrvFrame()
 	SekClose();
 
 	if (pBurnDraw) {
-		DrvDraw();
+		BurnDrvRedraw();
 	}
 
 	memcpy (DrvSprTBuf0, DrvSprBuf0, 0x800);

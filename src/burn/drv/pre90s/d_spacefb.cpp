@@ -670,7 +670,7 @@ static INT32 DrvFrame()
 		}
 		if (i == 240) {
 			if (pBurnDraw) {
-				DrvDraw();
+				BurnDrvRedraw();
 			}
 
 			ZetSetVector(0xcf);

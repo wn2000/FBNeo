@@ -851,7 +851,7 @@ static INT32 FantlandFrame()
 	VezClose();
 
 	if (pBurnDraw) {
-		DrvDraw();
+		BurnDrvRedraw();
 	}
 
 	return 0;
@@ -933,7 +933,7 @@ static INT32 WheelrunFrame()
 	VezClose();
 
 	if (pBurnDraw) {
-		DrvDraw();
+		BurnDrvRedraw();
 	}
 
 	return 0;

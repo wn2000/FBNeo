@@ -660,7 +660,7 @@ static INT32 DrvFrame()
                 Mips3SetIRQLine(VBLANK_IRQ, 1);
 				DcsCheckIRQ();
                 if (pBurnDraw) {
-                    DrvDraw();
+                    BurnDrvRedraw();
                 }
             }
         }

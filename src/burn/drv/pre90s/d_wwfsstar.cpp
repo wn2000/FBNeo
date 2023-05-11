@@ -680,7 +680,7 @@ static INT32 DrvFrame()
 
 		if (i == 248) { // draw at vbl
 			if (pBurnDraw) {
-				DrvDraw();
+				BurnDrvRedraw();
 			}
 		}
 

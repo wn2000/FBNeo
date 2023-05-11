@@ -916,7 +916,7 @@ static INT32 DrvFrame()
 	SekClose();
 
 	if (pBurnDraw) {
-		DrvDraw();
+		BurnDrvRedraw();
 	}
 
 	memcpy (DrvSpr0Buf1, DrvSpr0Buf0, 0x02000);
