@@ -581,7 +581,7 @@ static INT32 DrvFrame()
 				HD6309SetIRQLine(0, CPU_IRQSTATUS_HOLD);
 
 			if (pBurnDraw) { // missing text in service mode if drawn after vbl
-				DrvDraw();
+				BurnDrvRedraw();
 			}
 		}
 

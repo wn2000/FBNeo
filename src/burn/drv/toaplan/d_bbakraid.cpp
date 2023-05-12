@@ -978,7 +978,7 @@ static INT32 DrvFrame()
 			ToaBufferGP9001Sprites();
 
 			if (pBurnDraw) {											// Draw screen if needed
-				DrvDraw();
+				BurnDrvRedraw();
 			}
 
 			bVBlank = true;

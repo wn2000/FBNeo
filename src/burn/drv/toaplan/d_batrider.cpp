@@ -869,7 +869,7 @@ static INT32 drvFrame()
 
 			ToaBufferGP9001Sprites();
 			if (pBurnDraw) {											// Draw screen if needed
-				drvDraw();
+				BurnDrvRedraw();
 			}
 
 			nIRQPending = 1;

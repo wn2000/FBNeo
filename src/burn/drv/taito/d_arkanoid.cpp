@@ -1351,7 +1351,7 @@ static INT32 DrvFrame()
 			ZetSetIRQLine(0, CPU_IRQSTATUS_HOLD);
 
 			if (pBurnDraw) { // jets on thusters @ cutscene flicker wrong on one side if drawn at end of frame.
-				DrvDraw();
+				BurnDrvRedraw();
 			}
 		}
 

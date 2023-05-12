@@ -760,7 +760,7 @@ static INT32 DrvFrame()
 		nCyclesDone[nCurrentCPU] += ZetRun(nNext - nCyclesDone[nCurrentCPU]);
 		if (i == 240) {
 			if (pBurnDraw) { // draw here gets rid of artefacts when starting game
-				DrvDraw();
+				BurnDrvRedraw();
 			}
 			memcpy (DrvSprBuf, DrvSprRAM, 0x200); // buffer at rising vblank
 			ZetSetIRQLine(0, CPU_IRQSTATUS_HOLD);

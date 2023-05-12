@@ -532,7 +532,7 @@ static INT32 DrvFrame()
 			}
 
 			if (pBurnDraw != NULL) {
-				DrvDraw();												// Draw screen if needed
+				BurnDrvRedraw();												// Draw screen if needed
 			}
 			
 //			CaveSpriteBuffer();

@@ -2886,7 +2886,7 @@ INT32 System16AFrame()
 			if (System1668KEnable && !System16I8751RomNum) SekSetIRQLine(4, CPU_IRQSTATUS_AUTO);
 			if (Simulate8751) Simulate8751();
 
-			if (pBurnDraw && s16a_update_after_vblank == 0) System16ARender();
+			if (pBurnDraw && s16a_update_after_vblank == 0) BurnDrvRedraw();
 		}
 	}
 
@@ -2906,7 +2906,7 @@ INT32 System16AFrame()
 	nExtraCycles[2] = nSystem16CyclesDone[2] - nCyclesTotal[2];
 	nExtraCycles[3] = nSystem16CyclesDone[3] - nCyclesTotal[3];
 
-	if (pBurnDraw && s16a_update_after_vblank == 1) System16ARender();
+	if (pBurnDraw && s16a_update_after_vblank == 1) BurnDrvRedraw();
 
 	System16AVideoEnableDelayed = System16VideoEnable;
 
@@ -3106,7 +3106,7 @@ INT32 System18Frame()
 	nExtraCycles[2] = nSystem16CyclesDone[2] - nCyclesTotal[2];
 	//bprintf(0, _T("extra:  %d\t%d\t%d\n"), nExtraCycles[0],nExtraCycles[1],nExtraCycles[2]);
 	if (pBurnDraw) {
-		System18Render();
+		BurnDrvRedraw();
 	}
 	
 	return 0;

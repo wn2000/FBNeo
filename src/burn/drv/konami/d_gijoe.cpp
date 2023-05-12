@@ -720,7 +720,7 @@ static INT32 DrvFrame()
 			}
 
 			if (pBurnDraw) { // draw at vblank (or linemapping flickers @ elevator level)
-				DrvDraw();
+				BurnDrvRedraw();
 			}
 		}
 	}
