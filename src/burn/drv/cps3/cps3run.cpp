@@ -2183,7 +2183,7 @@ INT32 cps3Frame()
 
 	cps3SndUpdate();
 
-	if (pBurnDraw) DrvCps3Draw();
+	if (pBurnDraw) BurnDrvRedraw();
 
 	return 0;
 }
