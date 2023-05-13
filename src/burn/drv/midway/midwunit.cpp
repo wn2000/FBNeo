@@ -574,7 +574,7 @@ INT32 WolfUnitFrame()
 	}
 
 	if (pBurnDraw) {
-		WolfUnitDraw();
+		BurnDrvRedraw();
 	}
 
 	nExtraCycles = nCyclesDone[0] - nCyclesTotal[0];

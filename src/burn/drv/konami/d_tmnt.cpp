@@ -5927,7 +5927,7 @@ static INT32 TmntFrame()
 		BurnSoundLimiter(pBurnSoundOut, nBurnSoundLen, 0.55, 1.80);
 	}
 	
-	if (pBurnDraw) TmntDraw();
+	if (pBurnDraw) BurnDrvRedraw();
 
 	return 0;
 }
@@ -5989,7 +5989,7 @@ static INT32 MiaFrame()
 		}
 	}
 	
-	if (pBurnDraw) TmntDraw();
+	if (pBurnDraw) BurnDrvRedraw();
 
 	return 0;
 }
@@ -6040,7 +6040,7 @@ static INT32 CuebrickFrame()
 	
 	SekClose();
 	
-	if (pBurnDraw) TmntDraw();
+	if (pBurnDraw) BurnDrvRedraw();
 
 	return 0;
 }
@@ -6102,7 +6102,7 @@ static INT32 BlswhstlFrame()
 		}
 	}
 	
-	if (pBurnDraw) BlswhstlDraw();
+	if (pBurnDraw) BurnDrvRedraw();
 	
 	K053245ClearBuffer(0);
 
@@ -6171,7 +6171,7 @@ static INT32 SsridersFrame()
 		}
 	}
 
-	if (pBurnDraw) BlswhstlDraw();
+	if (pBurnDraw) BurnDrvRedraw();
 
 	return 0;
 }
@@ -6236,7 +6236,7 @@ static INT32 Thndrx2Frame()
 	ZetClose();
 	SekClose();
 
-	if (pBurnDraw) Thndrx2Draw();
+	if (pBurnDraw) BurnDrvRedraw();
 
 	return 0;
 }
@@ -6301,7 +6301,7 @@ static INT32 LgtnfghtFrame()
 	ZetClose();
 	SekClose();
 
-	if (pBurnDraw) BlswhstlDraw();
+	if (pBurnDraw) BurnDrvRedraw();
 
 	return 0;
 }
@@ -6328,7 +6328,7 @@ static INT32 Tmnt2Frame()
 		SekOpen(0);
 		if (scanline == 22) {
 			DrvVBlank = 0;
-			if (pBurnDraw) BlswhstlDraw();
+			if (pBurnDraw) BurnDrvRedraw();
 			drawn = 1;
 		}
 		if (scanline == 240) {
@@ -6364,7 +6364,7 @@ static INT32 Tmnt2Frame()
 		}
 	}
 
-	if (pBurnDraw && !drawn) BlswhstlDraw();
+	if (pBurnDraw && !drawn) BurnDrvRedraw();
 
 	return 0;
 }
@@ -6429,7 +6429,7 @@ static INT32 PunkshotFrame()
 	ZetClose();
 	SekClose();
 
-	if (pBurnDraw) PunkshotDraw();
+	if (pBurnDraw) BurnDrvRedraw();
 
 	return 0;
 }

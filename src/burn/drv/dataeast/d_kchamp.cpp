@@ -811,7 +811,7 @@ static INT32 KchampvsFrame()
 	ZetClose();
 
 	if (pBurnDraw) {
-		KchampvsDraw();
+		BurnDrvRedraw();
 	}
 
 	return 0;

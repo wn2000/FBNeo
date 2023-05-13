@@ -1288,7 +1288,7 @@ INT32 TUnitFrame()
 	TMS34010Close();
 
 	if (pBurnDraw) {
-		TUnitDraw();
+		BurnDrvRedraw();
 	}
 
 	return 0;

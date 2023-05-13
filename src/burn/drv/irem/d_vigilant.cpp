@@ -2315,7 +2315,7 @@ static INT32 DrvFrame()
 		if (DrvKikcubicDraw) {
 			KikcubicDraw();
 		} else {
-			DrvDraw();	
+			BurnDrvRedraw();	
 		}
 	}
 
