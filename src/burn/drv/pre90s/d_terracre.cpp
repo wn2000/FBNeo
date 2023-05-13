@@ -1818,7 +1818,7 @@ static INT32 DrvFrame()
 	}
 	ZetClose();
 	
-	if (pBurnDraw) DrvDraw();
+	if (pBurnDraw) BurnDrvRedraw();
 	memcpy(DrvSpriteRamBuffer, DrvSpriteRam, 0x002000);
 
 	return 0;

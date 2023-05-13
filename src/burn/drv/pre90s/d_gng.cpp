@@ -765,7 +765,7 @@ static INT32 DrvFrame()
 	{
 		CPU_RUN(0, M6809);
 		if (i == nInterleave-1) {
-			if (pBurnDraw) DrvDraw();
+			if (pBurnDraw) BurnDrvRedraw();
 
 			memcpy(DrvSprRAMBuf, DrvSprRAM, 0x200);
 			M6809SetIRQLine(0, CPU_IRQSTATUS_HOLD);

@@ -901,7 +901,7 @@ static INT32 DrvFrame()
 	M6809Close();
 	M6502Close();
 
-	if (pBurnDraw) DrvDraw();
+	if (pBurnDraw) BurnDrvRedraw();
 
 	return 0;
 }

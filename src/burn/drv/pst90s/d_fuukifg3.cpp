@@ -1289,7 +1289,7 @@ static INT32 DrvFrame()
 		DrvScrollBuf[i + 0x300] = BURN_ENDIAN_SWAP_INT32(vregs[3]);
 
 		if (i == 240) { // Draw @ VBlank
-			if (pBurnDraw) DrvDraw();
+			if (pBurnDraw) BurnDrvRedraw();
 
 			memcpy (DrvSprBuf1, DrvSprBuf0, 0x2000);
 			memcpy (DrvSprBuf0, DrvSprRAM,  0x2000);

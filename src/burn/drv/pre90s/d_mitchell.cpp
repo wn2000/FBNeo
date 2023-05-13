@@ -3015,7 +3015,7 @@ static INT32 DrvFrame()
 		}
 	}
 
-	if (pBurnDraw) DrvDraw();
+	if (pBurnDraw) BurnDrvRedraw();
 
 	return 0;
 }
@@ -3072,7 +3072,7 @@ static INT32 MstworldFrame()
 		}
 	}
 
-	if (pBurnDraw) DrvDraw();
+	if (pBurnDraw) BurnDrvRedraw();
 
 	return 0;
 }

@@ -665,7 +665,7 @@ static INT32 DrvFrame()
 
 	if (pBurnSoundOut) MSM6295Render(0, pBurnSoundOut, nBurnSoundLen);
 
-	if (pBurnDraw) DrvDraw();
+	if (pBurnDraw) BurnDrvRedraw();
 
 	return 0;
 }

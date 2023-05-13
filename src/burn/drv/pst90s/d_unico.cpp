@@ -1640,7 +1640,7 @@ static INT32 DrvFrame()
 	}
 	SekClose();
 	
-	if (pBurnDraw) DrvDraw();
+	if (pBurnDraw) BurnDrvRedraw();
 
 	return 0;
 }

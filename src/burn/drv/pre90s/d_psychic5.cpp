@@ -952,7 +952,7 @@ static INT32 DrvFrame()
 
 	DrvEnableBgClipMode(); // must run every frame, drawn or not.
 
-	if (pBurnDraw) DrvDraw();
+	if (pBurnDraw) BurnDrvRedraw();
 
 	return 0;
 }

@@ -1219,7 +1219,7 @@ static INT32 DrvFrame()
 		SN76496Update(1, pBurnSoundOut, nBurnSoundLen);
 	}
 
-	if (pBurnDraw) DrvDraw();
+	if (pBurnDraw) BurnDrvRedraw();
 
 	return 0;
 }

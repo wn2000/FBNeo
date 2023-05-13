@@ -1446,7 +1446,7 @@ static INT32 powerinsFrame()
 		ZetClose();
 	}
 
-	if (pBurnDraw) DrvDraw();
+	if (pBurnDraw) BurnDrvRedraw();
 
 	return 0;
 }
