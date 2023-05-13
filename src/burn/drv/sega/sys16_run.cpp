@@ -3370,7 +3370,7 @@ INT32 XBoardFrame()
 		}
 
 		if (i == 0 && ThndrbldMode && pBurnDraw) {
-			XBoardRender();
+			BurnDrvRedraw();
 		}
 
 		if (pBurnSoundOut) {
@@ -3404,7 +3404,7 @@ INT32 XBoardFrame()
 	nExtraCycles[3] = nSystem16CyclesDone[3] - nCyclesTotal[3];
 
 	if (pBurnDraw && ThndrbldMode == false) {
-		XBoardRender();
+		BurnDrvRedraw();
 	}
 
 	return 0;
@@ -3556,7 +3556,7 @@ INT32 YBoardFrame()
 
 		if (i == 223 * nInterleaveBoost) { // draw on vbl
 			if (pBurnDraw) {
-				YBoardRender();
+				BurnDrvRedraw();
 			}
 		}
 
