@@ -739,6 +739,8 @@ extern "C" INT32 BurnDrvExit()
 	}
 #endif
 
+	g_thread_pool.reset();
+
 	HiscoreExit(); // must come before CheatExit() (uses cheat cpu-registry)
 	CheatExit();
 	CheatSearchExit();
@@ -762,8 +764,6 @@ extern "C" INT32 BurnDrvExit()
 #endif
 
 	BurnRestoreSizeAspect_Internal();
-
-	g_thread_pool.reset();
 
 	return nRet;
 }
