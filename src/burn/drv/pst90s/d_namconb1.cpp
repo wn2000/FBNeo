@@ -1854,14 +1854,14 @@ static INT32 DrvFrame()
 
 	INT32 mult = 4;
 	INT32 nInterleave = 264 * mult;
-	INT32 nCyclesTotal[2] = { (INT32)(24192000 / 59.659091),  (INT32)(16128000 / 2 / 59.659091) };
+	INT32 nCyclesTotal[2] = { (INT32)(24192000 / 59.659091f * nBurnCPUSpeedAdjust / 256),  (INT32)(16128000 / 2 / 59.659091f * nBurnCPUSpeedAdjust / 256) };
 	INT32 nCyclesDone[2] = { nExtraCycles[0], nExtraCycles[1] };
 
 	SekOpen(0);
 	M377Open(0);
 	M377Idle(nExtraCycles[1]); // since we use CPU_RUN_SYNCINT
 
-	if (pBurnDraw) {
+	if (!bBurnUseThreadedVideo && pBurnDraw) {
 		DrvDrawBegin();
 	}
 
@@ -1888,7 +1888,7 @@ static INT32 DrvFrame()
 			SekSetIRQLine(pos_irq_level, CPU_IRQSTATUS_ACK);
 		}
 
-		if (pBurnDraw && ((i&(mult-1))==1) && i/mult < nScreenHeight) {
+		if (!bBurnUseThreadedVideo && pBurnDraw && ((i&(mult-1))==1) && i/mult < nScreenHeight) {
 			DrvDrawLine(i/mult);
 		}
 
@@ -1899,10 +1899,14 @@ static INT32 DrvFrame()
 
 			if (vbl_irq_level) SekSetIRQLine(vbl_irq_level, CPU_IRQSTATUS_ACK);
 
-			if (pBurnDraw) {
+			if (!bBurnUseThreadedVideo && pBurnDraw) {
 				DrvDrawEnd();
 			}
 		}
+	}
+
+	if (bBurnUseThreadedVideo && pBurnDraw) {
+		BurnDrvRedraw();
 	}
 
 	if (pBurnSoundOut) {
