@@ -4349,7 +4349,7 @@ static INT32 DrvFrame()
 	}
 
 	INT32 nInterleave = 262;
-	INT32 nCyclesTotal[3] = { ((is_multi32) ? 20000000 : 16107950) / 60, 10000000 / 60, 8053975 / 60 };
+	INT32 nCyclesTotal[3] = {((is_multi32) ? 20000000 : 16107950) / 60 * nBurnCPUSpeedAdjust / 256, 10000000 / 60 * nBurnCPUSpeedAdjust / 256, 8053975 / 60};
 	INT32 nCyclesDone[3] = { nExtraCycles[0], nExtraCycles[1], 0 };
 
 	v60Open(0);
