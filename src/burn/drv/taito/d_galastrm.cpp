@@ -889,7 +889,7 @@ static INT32 DrvFrame()
 	}
 
 	INT32 nInterleave = 256;
-	INT32 nCyclesTotal[1] = { 16000000 / 60 };
+	INT32 nCyclesTotal[1] = { (INT64)16000000 * nBurnCPUSpeedAdjust / (60 * 256) };
 	INT32 nCyclesDone[1] = { 0 };
 
 	for (INT32 i = 0; i < nInterleave; i++)
