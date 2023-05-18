@@ -2172,7 +2172,7 @@ static INT32 DrvFrame()
 	}
 
 	INT32 nInterleave = 296; // vtotal
-	INT32 nCyclesTotal[2] = { 25000000 / 54 /*(((28636363)/4)/448)/296*/, 7159090 / 54 };
+	INT32 nCyclesTotal[2] = { (INT64)25000000 * nBurnCPUSpeedAdjust / (54 * 256) /*(((28636363)/4)/448)/296*/, 7159090 / 54 };
 	INT32 nCyclesDone[2] = { nExtraCycles, 0 };
 
 	i386Open(0);
@@ -2230,7 +2230,7 @@ static INT32 Sys386Frame()
 	}
 
 	INT32 nInterleave = 296; // vtotal
-	INT32 nCyclesTotal[1] = { 40000000 / 54 /*(((28636363)/4)/448)/296*/ }; // sys386i others are 25mhz
+	INT32 nCyclesTotal[1] = { (INT64)40000000 * nBurnCPUSpeedAdjust / (54 * 256) /*(((28636363)/4)/448)/296*/ }; // sys386i others are 25mhz
 	INT32 nCyclesDone[1] = { nExtraCycles };
 
 	i386Open(0);
@@ -2289,7 +2289,7 @@ static INT32 Sys386fFrame()
 	}
 
 	INT32 nInterleave = 296; // vtotal
-	INT32 nCyclesTotal[1] = { 25000000 / 54 /*(((28636363)/4)/448)/296*/ };
+	INT32 nCyclesTotal[1] = { (INT64)25000000 * nBurnCPUSpeedAdjust / (54 * 256) /*(((28636363)/4)/448)/296*/ };
 	INT32 nCyclesDone[1] = { nExtraCycles };
 
 	i386Open(0);
