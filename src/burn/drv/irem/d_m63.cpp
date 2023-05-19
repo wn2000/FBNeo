@@ -831,7 +831,7 @@ static INT32 DrvFrame()
 	ZetNewFrame();
 
 	INT32 nInterleave = 256;
-	INT32 nCyclesTotal[2] = { 3000000 / 60, 3000000 / 60 };
+	INT32 nCyclesTotal[2] = { (INT64)3000000 * nBurnCPUSpeedAdjust / (60 * 256), (INT64)3000000 * nBurnCPUSpeedAdjust / (60 * 256) };
 	INT32 nCyclesDone[2] = { nExtraCycles[0], nExtraCycles[1] };
 
 	ZetOpen(0);
