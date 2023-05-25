@@ -682,22 +682,13 @@ static UINT8 starwars_sound_read(UINT16 address)
 
 static INT32 res_check()
 {
-	if (DrvDips[3] & 1) {
-		INT32 Width, Height;
-		BurnDrvGetVisibleSize(&Width, &Height);
+	INT32 width, height;
+	BurnDrvGetVisibleSize(&width, &height);
 
-		if (Height != 1080) {
-			vector_rescale((1080*640/480), 1080);
-			return 1;
-		}
-	} else {
-		INT32 Width, Height;
-		BurnDrvGetVisibleSize(&Width, &Height);
-
-		if (Height != 480) {
-			vector_rescale(640, 480);
-			return 1;
-		}
+	if (height != nBurnVectorHeight)
+	{
+		vector_rescale(nBurnVectorHeight * 4 / 3, nBurnVectorHeight);
+		return 1;
 	}
 	return 0;
 }

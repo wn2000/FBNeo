@@ -619,6 +619,43 @@ static const struct retro_core_option_v2_definition var_fbneo_threaded_video = {
 	"disabled"
 };
 
+static const struct retro_core_option_v2_definition var_fbneo_vector_resolution = {
+   "fbneo-vector-resolution",
+   "Vector resolution",
+   NULL,
+   "Vector resolution (height only, width determined by aspect ratio)",
+   NULL,
+   "vector",
+   {
+      { "480",  NULL },
+      { "768",  NULL },
+      { "960",  NULL },
+      { "1080", NULL },
+      { "1200", NULL },
+      { "1280", NULL },
+      { NULL, NULL },
+   },
+   "768"
+};
+
+static const struct retro_core_option_v2_definition var_fbneo_vector_intensity = {
+	"fbneo-vector-intensity",
+	"Vector intensity",
+	NULL,
+	"Vector intensity",
+	NULL,
+	"vector",
+	{
+		{"0.5", NULL},
+		{"1", NULL},
+		{"1.5", NULL},
+		{"2", NULL},
+		{"2.5", NULL},
+		{"3", NULL},
+		{NULL, NULL},
+	},
+	"1.5"};
+
 #ifdef FBNEO_DEBUG
 static const struct retro_core_option_v2_definition var_fbneo_debug_layer_1 = {
 	"fbneo-debug-layer-1",
@@ -972,6 +1009,10 @@ void set_environment()
 	// Threaded video
 	vars_systems.push_back(&var_fbneo_threaded_video);
 
+	// Vector settings
+	vars_systems.push_back(&var_fbneo_vector_resolution);
+	vars_systems.push_back(&var_fbneo_vector_intensity);
+
 #ifdef FBNEO_DEBUG
 	// Debug settings
 	vars_systems.push_back(&var_fbneo_debug_layer_1);
@@ -1063,6 +1104,11 @@ void set_environment()
 			"audio",
 			"Audio Settings",
 			"Configure Audio Settings"
+		},
+		{
+			"vector",
+			"Vector",
+			"Configure Vector Settings"
 		},
 		{
 			"dipswitch",
@@ -1706,6 +1752,18 @@ void check_variables(void)
 		else if (strcmp(var.value, "always show") == 0)
 			nLightgunCrosshairEmulation = 2;
 		RefreshLightgunCrosshair();
+	}
+
+	var.key = var_fbneo_vector_resolution.key;
+	if (environ_cb(RETRO_ENVIRONMENT_GET_VARIABLE, &var) && var.value)
+	{
+		nBurnVectorHeight = atoi(var.value);
+	}
+
+	var.key = var_fbneo_vector_intensity.key;
+	if (environ_cb(RETRO_ENVIRONMENT_GET_VARIABLE, &var) && var.value)
+	{
+		fBurnVectorIntensity = (float)atof(var.value);
 	}
 
 #ifdef USE_CYCLONE

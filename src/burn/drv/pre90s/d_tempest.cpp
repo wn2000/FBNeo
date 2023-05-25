@@ -260,16 +260,14 @@ static void tempest_write(UINT16 address, UINT8 data)
 
 static INT32 res_check()
 {
-	const INT32 reso_list[3] = { 640, 1024, 1080 };
-	INT32 Width, Height;
-	INT32 Selected = reso_list[DrvDips[5] & 3];
-	BurnDrvGetVisibleSize(&Width, &Height);
-//	bprintf(0, _T("now:  %d   Selected (dip):  %d\n"), Height, Selected);
-	if (Height != Selected) {
-		vector_rescale((Selected * 480 / 640), Selected);
+	INT32 width, height;
+	BurnDrvGetVisibleSize(&width, &height);
+
+	if (height != nBurnVectorHeight)
+	{
+		vector_rescale(nBurnVectorHeight * 3 / 4, nBurnVectorHeight);
 		return 1;
 	}
-
 	return 0;
 }
 

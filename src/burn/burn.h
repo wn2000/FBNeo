@@ -301,6 +301,9 @@ extern INT32 nFMInterpolation;				// Desired interpolation level for FM sound
 
 extern UINT32 *pBurnDrvPalette;
 
+extern UINT32 nBurnVectorHeight;
+extern float fBurnVectorIntensity;
+
 #define PRINT_NORMAL	(0)
 #define PRINT_UI		(1)
 #define PRINT_IMPORTANT (2)

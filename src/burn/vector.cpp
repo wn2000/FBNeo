@@ -27,7 +27,6 @@ static INT32 vector_scaleY_int  = 0;
 static INT32 vector_offsetX     = 0;
 static INT32 vector_offsetY     = 0;
 static float vector_gamma_corr  = 1.2;
-static float vector_intens      = 1.0;
 static INT32 vector_antialias   = 1;
 static INT32 vector_beam        = 0x0001f65e; // 16.16 beam width
 
@@ -90,9 +89,6 @@ void vector_rescale(INT32 x, INT32 y)
 	vector_set_clip(0, nScreenWidth, 0, nScreenHeight);
 
 	vector_set_scale(vector_scaleX_int, vector_scaleY_int);
-
-	// This is bit hacky, but thicker lines are more enjoyable at 1080p -barbudreadmon
-	vector_intens = (y == 1080 ? 2.0 : 1.0);
 }
 
 void vector_add_point(INT32 x, INT32 y, INT32 color, INT32 intensity)
@@ -102,7 +98,7 @@ void vector_add_point(INT32 x, INT32 y, INT32 color, INT32 intensity)
 	vector_ptr->y = (vector_antialias == 0) ? (((y + 0x8000) >> 16) + vector_offsetY) : (y + (vector_offsetY << 16));
 	vector_ptr->color = color;
 
-	intensity *= vector_intens; // intensity correction
+	intensity *= fBurnVectorIntensity; // intensity correction
 	CLAMP8(intensity);
 	vector_ptr->intensity = (vector_antialias == 0) ? gammaLUT[intensity] : intensity;
 

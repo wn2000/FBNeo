@@ -85,6 +85,10 @@ UINT32 *pBurnDrvPalette;
 bool bBurnUseThreadedVideo = false;
 std::unique_ptr<BS::thread_pool> g_thread_pool;
 
+// vector variables
+UINT32 nBurnVectorHeight = 768;
+float fBurnVectorIntensity = 1.5f;
+
 bool BurnCheckMMXSupport()
 {
 #if defined BUILD_X86_ASM

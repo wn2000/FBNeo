@@ -283,22 +283,13 @@ static INT32 dip1_read(INT32 offset)
 
 static INT32 res_check()
 {
-	if (DrvDips[2] & 1) {
-		INT32 Width, Height;
-		BurnDrvGetVisibleSize(&Width, &Height);
+	INT32 width, height;
+	BurnDrvGetVisibleSize(&width, &height);
 
-		if (Height != 1080) {
-			vector_rescale((1080*480/640), 1080);
-			return 1;
-		}
-	} else {
-		INT32 Width, Height;
-		BurnDrvGetVisibleSize(&Width, &Height);
-
-		if (Height != 640) {
-			vector_rescale(480, 640);
-			return 1;
-		}
+	if (height != nBurnVectorHeight)
+	{
+		vector_rescale(nBurnVectorHeight * 3 / 4, nBurnVectorHeight);
+		return 1;
 	}
 	return 0;
 }
